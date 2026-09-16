@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SecureVision | Enterprise Surveillance</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     APPLICATION
+========================================================= -->
+
+<div class="app">
+
+
+    <!-- =====================================================
+         TOP NAVIGATION
+    ====================================================== -->
+
+    <header class="top-navigation">
+
+
+        <div class="brand">
+
+            <div class="brand-mark">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <div>
+
+                <h1>SECURE<span>VISION</span></h1>
+
+                <small>
+                    ENTERPRISE SECURITY NETWORK
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- INTERACTIVE TABS -->
+
+        <nav class="top-tabs">
+
+            <button class="top-tab active"
+                    data-page="dashboard">
+
+                <i class="fa-solid fa-crosshairs"></i>
+
+                Command Center
+
+            </button>
+
+
+            <button class="top-tab"
+                    data-page="recognition">
+
+                <i class="fa-solid fa-user-shield"></i>
+
+                Recognition
+
+            </button>
+
+
+            <button class="top-tab"
+                    data-page="records">
+
+                <i class="fa-solid fa-clock-rotate-left"></i>
+
+                Records
+
+            </button>
+
+
+            <button class="top-tab"
+                    data-page="access">
+
+                <i class="fa-solid fa-door-open"></i>
+
+                Access
+
+            </button>
+
+
+            <button class="top-tab"
+                    data-page="alerts">
+
+                <i class="fa-solid fa-bell"></i>
+
+                Alerts
+
+                <b>3</b>
+
+            </button>
+
+        </nav>
+
+
+        <div class="top-right">
+
+            <div class="live-system">
+
+                <span></span>
+
+                SYSTEM LIVE
+
+            </div>
+
+
+            <div class="clock"
+                 id="topClock">
+
+                10:22:17
+
+            </div>
+
+
+            <div class="admin">
+
+                <div>
+                    A
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </header>
+
+
+
+    <!-- =====================================================
+         BODY
+    ====================================================== -->
+
+    <div class="workspace">
+
+
+        <!-- =================================================
+             LEFT CONTROL RAIL
+        ================================================== -->
+
+        <aside class="control-rail">
+
+
+            <div class="rail-title">
+
+                <span>
+                    SECURITY
+                </span>
+
+                <strong>
+                    OVERVIEW
+                </strong>
+
+            </div>
+
+
+            <!-- QUICK STATS -->
+
+            <div class="rail-stat">
+
+                <div class="rail-icon camera">
+                    <i class="fa-solid fa-video"></i>
+                </div>
+
+                <div>
+
+                    <strong>12</strong>
+
+                    <span>
+                        Cameras
+                    </span>
+
+                </div>
+
+                <i class="fa-solid fa-circle-check status-check"></i>
+
+            </div>
+
+
+            <div class="rail-stat">
+
+                <div class="rail-icon identity">
+                    <i class="fa-solid fa-fingerprint"></i>
+                </div>
+
+                <div>
+
+                    <strong>45</strong>
+
+                    <span>
+                        Identities
+                    </span>
+
+                </div>
+
+                <i class="fa-solid fa-circle-check status-check"></i>
+
+            </div>
+
+
+            <div class="rail-stat">
+
+                <div class="rail-icon visitor">
+                    <i class="fa-solid fa-user-group"></i>
+                </div>
+
+                <div>
+
+                    <strong>07</strong>
+
+                    <span>
+                        Visitors
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="rail-stat alert">
+
+                <div class="rail-icon danger">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+
+                <div>
+
+                    <strong>03</strong>
+
+                    <span>
+                        Alerts
+                    </span>
+
+                </div>
+
+                <i class="alert-pulse"></i>
+
+            </div>
+
+
+
+            <!-- CAMERA LOCATIONS -->
+
+            <div class="rail-section">
+
+                <div class="rail-section-title">
+
+                    <span>
+                        CAMERA LOCATIONS
+                    </span>
+
+                    <i class="fa-solid fa-location-crosshairs"></i>
+
+                </div>
+
+
+                <button class="location active">
+
+                    <span class="location-dot"></span>
+
+                    Main Entrance
+
+                    <small>
+                        CAM 01
+                    </small>
+
+                </button>
+
+
+                <button class="location">
+
+                    <span class="location-dot"></span>
+
+                    Reception
+
+                    <small>
+                        CAM 02
+                    </small>
+
+                </button>
+
+
+                <button class="location">
+
+                    <span class="location-dot"></span>
+
+                    R&D Laboratory
+
+                    <small>
+                        CAM 03
+                    </small>
+
+                </button>
+
+
+                <button class="location offline">
+
+                    <span class="location-dot"></span>
+
+                    Side Gate
+
+                    <small>
+                        CAM 04
+                    </small>
+
+                </button>
+
+            </div>
+
+
+
+            <!-- SECURITY MODE -->
+
+            <div class="security-mode">
+
+                <div class="mode-header">
+
+                    <span>
+                        SECURITY MODE
+                    </span>
+
+                    <i class="fa-solid fa-sliders"></i>
+
+                </div>
+
+
+                <div class="mode-value">
+
+                    <span></span>
+
+                    ACTIVE MONITORING
+
+                </div>
+
+
+                <small>
+                    Automatic recognition enabled
+                </small>
+
+            </div>
+
+
+        </aside>
+
+
+
+        <!-- =================================================
+             MAIN CONTENT
+        ================================================== -->
+
+        <main class="content">
+
+
+            <!-- =================================================
+                 DASHBOARD
+            ================================================== -->
+
+            <section id="dashboard"
+                     class="page active-page">
+
+
+                <!-- COMMAND INTRO -->
+
+                <div class="command-intro">
+
+                    <div>
+
+                        <span class="command-label">
+                            <i class="fa-solid fa-wave-square"></i>
+                            LIVE COMMAND CENTER
+                        </span>
+
+                        <h2>
+                            Enterprise Surveillance
+                        </h2>
+
+                        <p>
+                            Monitor identity activity and access events
+                            across the facility.
+                        </p>
+
+                    </div>
+
+
+                    <div class="date-display">
+
+                        <span id="fullDate">
+                            23 MAY 2025
+                        </span>
+
+                        <strong id="commandClock">
+                            10:22:17 AM
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     LARGE MONITORING STAGE
+                ================================================== -->
+
+                <div class="monitor-layout">
+
+
+                    <!-- MAIN CAMERA -->
+
+                    <div class="primary-camera">
+
+
+                        <div class="camera-heading">
+
+                            <div>
+
+                                <span class="camera-status">
+                                    <i></i>
+                                    LIVE
+                                </span>
+
+                                <strong>
+                                    CAM 01
+                                </strong>
+
+                                <span>
+                                    MAIN ENTRANCE
+                                </span>
+
+                            </div>
+
+
+                            <div class="camera-tools">
+
+                                <button title="Expand">
+                                    <i class="fa-solid fa-expand"></i>
+                                </button>
+
+                                <button title="Settings">
+                                    <i class="fa-solid fa-gear"></i>
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="camera-viewport">
+
+
+                            <div class="grid-overlay"></div>
+
+
+                            <div class="viewport-message">
+
+                                <i class="fa-solid fa-camera"></i>
+
+                                <strong>
+                                    DATASET FEED
+                                </strong>
+
+                                <span>
+                                    Image input ready
+                                </span>
+
+                            </div>
+
+
+                            <!-- CAMERA CORNERS -->
+
+                            <div class="corner c1"></div>
+                            <div class="corner c2"></div>
+                            <div class="corner c3"></div>
+                            <div class="corner c4"></div>
+
+
+                            <div class="camera-meta">
+
+                                <span>
+                                    CAM-01 / MAIN
+                                </span>
+
+                                <span>
+                                    1920 × 1080
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="camera-footer">
+
+                            <div>
+
+                                <span class="footer-online">
+                                    <i class="fa-solid fa-circle"></i>
+                                    ONLINE
+                                </span>
+
+                                <span>
+                                    FACE DETECTION
+                                </span>
+
+                                <span>
+                                    AUTO ANALYSIS
+                                </span>
+
+                            </div>
+
+
+                            <button class="process-link"
+                                    data-page-target="recognition">
+
+                                PROCESS IMAGE
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- FACILITY STATUS -->
+
+                    <div class="facility-card">
+
+
+                        <div class="facility-top">
+
+                            <div>
+
+                                <span>
+                                    FACILITY STATUS
+                                </span>
+
+                                <h3>
+                                    Secure
+                                </h3>
+
+                            </div>
+
+
+                            <div class="facility-shield">
+
+                                <i class="fa-solid fa-shield"></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="security-ring">
+
+                            <div class="ring-inner">
+
+                                <strong>
+                                    94%
+                                </strong>
+
+                                <span>
+                                    SECURE
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="facility-metrics">
+
+
+                            <div>
+
+                                <span>
+                                    ACCESS
+                                </span>
+
+                                <strong>
+                                    128
+                                </strong>
+
+                                <small>
+                                    today
+                                </small>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    BLOCKED
+                                </span>
+
+                                <strong class="blocked">
+                                    03
+                                </strong>
+
+                                <small>
+                                    attempts
+                                </small>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    ACTIVE
+                                </span>
+
+                                <strong>
+                                    07
+                                </strong>
+
+                                <small>
+                                    visitors
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="facility-line">
+
+                            <span>
+                                Security level
+                            </span>
+
+                            <strong>
+                                LEVEL 2
+                            </strong>
+
+                        </div>
+
+
+                        <div class="facility-line">
+
+                            <span>
+                                Recognition
+                            </span>
+
+                            <strong class="green-text">
+                                ACTIVE
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     SMALL CAMERA STRIP
+                ================================================== -->
+
+                <div class="mini-camera-row">
+
+
+                    <div class="mini-camera selected">
+
+                        <div class="mini-screen">
+
+                            <i class="fa-solid fa-video"></i>
+
+                            <span>
+                                CAM 01
+                            </span>
+
+                        </div>
+
+                        <div class="mini-info">
+
+                            <strong>
+                                Main Entrance
+                            </strong>
+
+                            <span>
+                                ● LIVE
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="mini-camera">
+
+                        <div class="mini-screen">
+
+                            <i class="fa-solid fa-video"></i>
+
+                            <span>
+                                CAM 02
+                            </span>
+
+                        </div>
+
+                        <div class="mini-info">
+
+                            <strong>
+                                Reception
+                            </strong>
+
+                            <span>
+                                ● LIVE
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="mini-camera">
+
+                        <div class="mini-screen">
+
+                            <i class="fa-solid fa-video"></i>
+
+                            <span>
+                                CAM 03
+                            </span>
+
+                        </div>
+
+                        <div class="mini-info">
+
+                            <strong>
+                                R&D Laboratory
+                            </strong>
+
+                            <span>
+                                ● LIVE
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="mini-camera offline-mini">
+
+                        <div class="mini-screen">
+
+                            <i class="fa-solid fa-video-slash"></i>
+
+                            <span>
+                                CAM 04
+                            </span>
+
+                        </div>
+
+                        <div class="mini-info">
+
+                            <strong>
+                                Side Gate
+                            </strong>
+
+                            <span>
+                                OFFLINE
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     ACTIVITY
+                ================================================== -->
+
+                <div class="activity-layout">
+
+
+                    <div class="activity-panel">
+
+
+                        <div class="panel-heading">
+
+                            <div>
+
+                                <span>
+                                    SECURITY STREAM
+                                </span>
+
+                                <h3>
+                                    Recent Activity
+                                </h3>
+
+                            </div>
+
+
+                            <button>
+                                LIVE
+                                <i class="fa-solid fa-signal"></i>
+                            </button>
+
+                        </div>
+
+
+                        <div class="activity-list">
+
+
+                            <div class="activity-item danger-row">
+
+                                <div class="activity-time">
+                                    10:18
+                                </div>
+
+                                <div class="activity-marker danger-marker">
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                </div>
+
+                                <div class="activity-details">
+
+                                    <strong>
+                                        Unknown individual detected
+                                    </strong>
+
+                                    <span>
+                                        Main Entrance • CAM 01
+                                    </span>
+
+                                </div>
+
+                                <b class="activity-status denied">
+                                    ACCESS DENIED
+                                </b>
+
+                            </div>
+
+
+                            <div class="activity-item">
+
+                                <div class="activity-time">
+                                    10:15
+                                </div>
+
+                                <div class="activity-marker success-marker">
+                                    <i class="fa-solid fa-user-check"></i>
+                                </div>
+
+                                <div class="activity-details">
+
+                                    <strong>
+                                        Authorized identity recognized
+                                    </strong>
+
+                                    <span>
+                                        Main Entrance • CAM 01
+                                    </span>
+
+                                </div>
+
+                                <b class="activity-status granted">
+                                    GRANTED
+                                </b>
+
+                            </div>
+
+
+                            <div class="activity-item">
+
+                                <div class="activity-time">
+                                    10:11
+                                </div>
+
+                                <div class="activity-marker visitor-marker">
+                                    <i class="fa-solid fa-user"></i>
+                                </div>
+
+                                <div class="activity-details">
+
+                                    <strong>
+                                        Visitor check-in recorded
+                                    </strong>
+
+                                    <span>
+                                        Reception • CAM 02
+                                    </span>
+
+                                </div>
+
+                                <b class="activity-status visitor-status">
+                                    CHECKED IN
+                                </b>
+
+                            </div>
+
+
+                            <div class="activity-item">
+
+                                <div class="activity-time">
+                                    10:04
+                                </div>
+
+                                <div class="activity-marker success-marker">
+                                    <i class="fa-solid fa-door-open"></i>
+                                </div>
+
+                                <div class="activity-details">
+
+                                    <strong>
+                                        Access granted
+                                    </strong>
+
+                                    <span>
+                                        R&D Laboratory • CAM 03
+                                    </span>
+
+                                </div>
+
+                                <b class="activity-status granted">
+                                    GRANTED
+                                </b>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- QUICK ACTIONS -->
+
+                    <div class="quick-panel">
+
+                        <span>
+                            QUICK ACTIONS
+                        </span>
+
+                        <h3>
+                            Security Tools
+                        </h3>
+
+
+                        <button data-page-target="recognition">
+
+                            <i class="fa-solid fa-user-shield"></i>
+
+                            <div>
+
+                                <strong>
+                                    Face Recognition
+                                </strong>
+
+                                <small>
+                                    Process dataset image
+                                </small>
+
+                            </div>
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </button>
+
+
+                        <button data-page-target="records">
+
+                            <i class="fa-solid fa-list-check"></i>
+
+                            <div>
+
+                                <strong>
+                                    Attendance Records
+                                </strong>
+
+                                <small>
+                                    View today's activity
+                                </small>
+
+                            </div>
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </button>
+
+
+                        <button data-page-target="alerts">
+
+                            <i class="fa-solid fa-bell"></i>
+
+                            <div>
+
+                                <strong>
+                                    Security Alerts
+                                </strong>
+
+                                <small>
+                                    3 events require review
+                                </small>
+
+                            </div>
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 FACE RECOGNITION
+            ================================================== -->
+
+            <section id="recognition"
+                     class="page">
+
+
+                <div class="recognition-page-header">
+
+                    <div>
+
+                        <span>
+                            AI IDENTITY VERIFICATION
+                        </span>
+
+                        <h2>
+                            Face Recognition
+                        </h2>
+
+                        <p>
+                            Upload a CCTV or dataset image for identity verification.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="recognition-layout">
+
+                    <div class="recognition-image-card">
+
+                        <div class="recognition-top">
+
+                            <span>
+                                <span class="live-dot"></span>
+                                CAM 01 - Main Entrance
+                            </span>
+
+                            <span id="recognitionTime">
+                                23-05-2025 10:22:17 AM
+                            </span>
+
+                        </div>
+
+
+                        <div class="image-area"
+                             id="imageArea">
+
+                            <div class="upload-content">
+
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                                <h3>
+                                    Upload CCTV Image
+                                </h3>
+
+                                <p>
+                                    Select a JPG, JPEG or PNG image
+                                </p>
+
+                                <label class="upload-button">
+
+                                    <i class="fa-solid fa-folder-open"></i>
+
+                                    Choose Image
+
+                                    <input
+                                        type="file"
+                                        id="imageInput"
+                                        accept=".jpg,.jpeg,.png"
+                                    >
+
+                                </label>
+
+                            </div>
+
+
+                            <img
+                                id="uploadedImage"
+                                class="uploaded-image"
+                                alt="Uploaded surveillance image"
+                            >
+
+                            <div id="faceBox"
+                                 class="face-box">
+                            </div>
+
+                        </div>
+
+
+                        <div class="image-footer">
+
+                            <span>
+                                <i class="fa-solid fa-circle"></i>
+                                Image Processing Ready
+                            </span>
+
+                            <span>
+                                JPG / JPEG / PNG
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="recognition-details">
+
+
+                        <div class="result-card status-card">
+
+                            <span class="result-title green-title">
+                                RECOGNITION STATUS
+                            </span>
+
+                            <div class="recognition-status">
+
+                                <div
+                                    class="status-circle"
+                                    id="statusCircle">
+
+                                    <i class="fa-solid fa-check"></i>
+
+                                </div>
+
+                                <div>
+
+                                    <h2 id="recognitionResult">
+                                        WAITING
+                                    </h2>
+
+                                    <p id="accessResult">
+                                        Upload an image to begin
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="result-card">
+
+                            <span class="result-title blue-title">
+                                IDENTITY DETAILS
+                            </span>
+
+
+                            <div class="identity-row">
+                                <span>ID</span>
+                                <strong id="employeeId">---</strong>
+                            </div>
+
+                            <div class="identity-row">
+                                <span>Name</span>
+                                <strong id="employeeName">---</strong>
+                            </div>
+
+                            <div class="identity-row">
+                                <span>Department</span>
+                                <strong id="department">---</strong>
+                            </div>
+
+                            <div class="identity-row">
+                                <span>Designation</span>
+                                <strong id="designation">---</strong>
+                            </div>
+
+                            <div class="identity-row">
+                                <span>Access Level</span>
+                                <strong id="accessLevel">---</strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="result-card">
+
+                            <span class="result-title blue-title">
+                                TIMESTAMP
+                            </span>
+
+                            <div class="timestamp">
+
+                                <i class="fa-regular fa-calendar"></i>
+
+                                <span id="timestamp">
+                                    Waiting for image...
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="result-card">
+
+                            <span class="result-title blue-title">
+                                LOCATION
+                            </span>
+
+                            <div class="timestamp">
+
+                                <i class="fa-solid fa-location-dot"></i>
+
+                                <span>
+                                    Main Entrance
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="process-area">
+
+                    <button
+                        class="process-button"
+                        id="processButton">
+
+                        <i class="fa-solid fa-brain"></i>
+
+                        Run Face Recognition
+
+                    </button>
+
+                    <p>
+                        Deep Learning Model: Face Recognition
+                    </p>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 RECORDS
+            ================================================== -->
+
+            <section id="records"
+                     class="page">
+
+                <div class="generic-header">
+
+                    <span>
+                        ACTIVITY DATABASE
+                    </span>
+
+                    <h2>
+                        Attendance & Records
+                    </h2>
+
+                    <p>
+                        Employee attendance and visitor activity.
+                    </p>
+
+                </div>
+
+
+                <div class="data-panel">
+
+                    <div class="data-toolbar">
+
+                        <strong>
+                            Today's Records
+                        </strong>
+
+                        <div>
+
+                            <button class="filter-button active">
+                                All
+                            </button>
+
+                            <button class="filter-button">
+                                Employees
+                            </button>
+
+                            <button class="filter-button">
+                                Visitors
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>TIME</th>
+                                <th>IDENTITY</th>
+                                <th>TYPE</th>
+                                <th>LOCATION</th>
+                                <th>STATUS</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>10:22:17 AM</td>
+
+                                <td>Registered Employee</td>
+
+                                <td>Employee</td>
+
+                                <td>Main Entrance</td>
+
+                                <td>
+                                    <span class="table-success">
+                                        PRESENT
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>10:18:47 AM</td>
+
+                                <td>Unknown Person</td>
+
+                                <td>Unknown</td>
+
+                                <td>Main Entrance</td>
+
+                                <td>
+                                    <span class="table-danger">
+                                        UNAUTHORIZED
+                                    </span>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>10:11:23 AM</td>
+
+                                <td>Visitor</td>
+
+                                <td>Visitor</td>
+
+                                <td>Reception</td>
+
+                                <td>
+                                    <span class="table-info">
+                                        CHECKED IN
+                                    </span>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 ACCESS
+            ================================================== -->
+
+            <section id="access"
+                     class="page">
+
+                <div class="generic-header">
+
+                    <span>
+                        ACCESS CONTROL
+                    </span>
+
+                    <h2>
+                        Access Logs
+                    </h2>
+
+                    <p>
+                        Identity verification and access decisions.
+                    </p>
+
+                </div>
+
+
+                <div class="access-timeline">
+
+                    <div class="timeline-entry granted-entry">
+
+                        <div class="timeline-time">
+                            10:22
+                        </div>
+
+                        <div class="timeline-icon">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Access Granted
+                            </strong>
+
+                            <span>
+                                Registered employee • Main Entrance
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="timeline-entry denied-entry">
+
+                        <div class="timeline-time">
+                            10:18
+                        </div>
+
+                        <div class="timeline-icon">
+                            <i class="fa-solid fa-xmark"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Access Denied
+                            </strong>
+
+                            <span>
+                                Unknown person • Main Entrance
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="timeline-entry granted-entry">
+
+                        <div class="timeline-time">
+                            10:04
+                        </div>
+
+                        <div class="timeline-icon">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Access Granted
+                            </strong>
+
+                            <span>
+                                Registered employee • R&D Laboratory
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 ALERTS
+            ================================================== -->
+
+            <section id="alerts"
+                     class="page">
+
+                <div class="generic-header">
+
+                    <span>
+                        SECURITY OPERATIONS
+                    </span>
+
+                    <h2>
+                        Security Alerts
+                    </h2>
+
+                    <p>
+                        Events requiring security attention.
+                    </p>
+
+                </div>
+
+
+                <div class="alert-command">
+
+
+                    <div class="major-alert">
+
+                        <div class="major-alert-icon">
+
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                CRITICAL EVENT
+                            </span>
+
+                            <h3>
+                                Unauthorized Individual Detected
+                            </h3>
+
+                            <p>
+                                Unknown face detected at Main Entrance.
+                                Access was automatically denied.
+                            </p>
+
+                            <small>
+                                23 MAY 2025 • 10:18:47 AM • CAM 01
+                            </small>
+
+                        </div>
+
+                        <button>
+                            REVIEW EVENT
+                        </button>
+
+                    </div>
+
+
+                    <div class="alert-card-small">
+
+                        <i class="fa-solid fa-user-slash"></i>
+
+                        <div>
+
+                            <strong>
+                                Unknown Face
+                            </strong>
+
+                            <span>
+                                Side Gate • 10:25 AM
+                            </span>
+
+                        </div>
+
+                        <b>
+                            ALERT
+                        </b>
+
+                    </div>
+
+
+                    <div class="alert-card-small">
+
+                        <i class="fa-solid fa-eye"></i>
+
+                        <div>
+
+                            <strong>
+                                Recognition Failed
+                            </strong>
+
+                            <span>
+                                Reception • 09:47 AM
+                            </span>
+
+                        </div>
+
+                        <b>
+                            REVIEW
+                        </b>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
