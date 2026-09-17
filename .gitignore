@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.venv
+venv/
+ENV/
+
+# Database
+*.db
+*.sqlite3
+
+# Ultralytics & Weights
+runs/
+*.pt
+!yolov8n.pt
+
+# Static uploads
+static/snapshots/*
+!static/snapshots/.gitkeep
+static/enrolled/*
+!static/enrolled/.gitkeep
+
+# Environment
+.env
+.DS_Store
+Thumbs.db

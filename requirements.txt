@@ -1,0 +1,47 @@
+# =====================================================================
+# SecureVision Enterprise Surveillance - Python Dependencies
+# Tested on Windows 10/11, Python 3.10+
+# Install: pip install -r requirements.txt
+# =====================================================================
+
+# Web Framework & Server
+fastapi==0.111.0
+uvicorn[standard]==0.30.1
+python-multipart==0.0.9
+
+# Database
+sqlalchemy==2.0.30
+
+# Authentication & Security
+pyjwt==2.8.0
+python-dotenv==1.0.1
+
+# Validation & Settings
+pydantic==2.7.1
+pydantic-settings==2.2.1
+
+# Computer Vision & ML
+# NOTE: opencv-contrib-python includes FaceDetectorYN and FaceRecognizerSF
+opencv-contrib-python==4.10.0.84
+numpy==1.26.4
+pillow==10.3.0
+
+# YOLO Person Detection
+ultralytics==8.2.42
+
+# PyTorch CPU (lighter, runs on normal Windows laptop)
+# If you have CUDA GPU: replace with torch==2.3.0+cu121 from https://pytorch.org
+torch==2.3.0
+torchvision==0.18.0
+
+# HTTP requests (model auto-download)
+requests==2.32.3
+
+# WebSocket support
+websockets==12.0
+
+# YAML parsing (for training script)
+pyyaml==6.0.1
+
+# Async support
+anyio==4.4.0

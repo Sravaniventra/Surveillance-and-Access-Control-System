@@ -103,7 +103,7 @@
 
                 Alerts
 
-                <b>3</b>
+                <b id="topAlertBadge">3</b>
 
             </button>
 
@@ -129,7 +129,7 @@
             </div>
 
 
-            <div class="admin">
+            <div class="admin" id="adminBtn" title="Security Admin Portal" style="cursor: pointer;">
 
                 <div>
                     A
@@ -181,7 +181,7 @@
 
                 <div>
 
-                    <strong>12</strong>
+                    <strong id="railCameraCount">04</strong>
 
                     <span>
                         Cameras
@@ -202,7 +202,7 @@
 
                 <div>
 
-                    <strong>45</strong>
+                    <strong id="railIdentityCount">45</strong>
 
                     <span>
                         Identities
@@ -223,7 +223,7 @@
 
                 <div>
 
-                    <strong>07</strong>
+                    <strong id="railVisitorCount">07</strong>
 
                     <span>
                         Visitors
@@ -242,7 +242,7 @@
 
                 <div>
 
-                    <strong>03</strong>
+                    <strong id="railAlertCount">03</strong>
 
                     <span>
                         Alerts
@@ -271,7 +271,7 @@
                 </div>
 
 
-                <button class="location active">
+                <button class="location active" data-cam-id="cam_01">
 
                     <span class="location-dot"></span>
 
@@ -284,7 +284,7 @@
                 </button>
 
 
-                <button class="location">
+                <button class="location" data-cam-id="cam_02">
 
                     <span class="location-dot"></span>
 
@@ -297,7 +297,7 @@
                 </button>
 
 
-                <button class="location">
+                <button class="location" data-cam-id="cam_03">
 
                     <span class="location-dot"></span>
 
@@ -310,7 +310,7 @@
                 </button>
 
 
-                <button class="location offline">
+                <button class="location offline" data-cam-id="cam_04">
 
                     <span class="location-dot"></span>
 
@@ -431,16 +431,16 @@
 
                             <div>
 
-                                <span class="camera-status">
+                                <span class="camera-status" id="primaryCamStatus">
                                     <i></i>
                                     LIVE
                                 </span>
 
-                                <strong>
+                                <strong id="primaryCamName">
                                     CAM 01
                                 </strong>
 
-                                <span>
+                                <span id="primaryCamLocation">
                                     MAIN ENTRANCE
                                 </span>
 
@@ -449,12 +449,20 @@
 
                             <div class="camera-tools">
 
-                                <button title="Expand">
-                                    <i class="fa-solid fa-expand"></i>
+                                <button id="cameraSourceBtn" title="Switch between Webcam & CCTV Dataset Feed">
+                                    <i class="fa-solid fa-camera-rotate"></i>
                                 </button>
 
-                                <button title="Settings">
-                                    <i class="fa-solid fa-gear"></i>
+                                <button id="cameraToggleOnlineBtn" title="Toggle Online / Signal Lost">
+                                    <i class="fa-solid fa-power-off"></i>
+                                </button>
+
+                                <button id="enrollFaceBtn" title="Enroll New Identity">
+                                    <i class="fa-solid fa-user-plus"></i>
+                                </button>
+
+                                <button id="expandCamBtn" title="Expand Stream">
+                                    <i class="fa-solid fa-expand"></i>
                                 </button>
 
                             </div>
@@ -464,11 +472,16 @@
 
                         <div class="camera-viewport">
 
+                            <!-- LIVE STREAM ELEMENT -->
+                            <img id="cameraStreamImg"
+                                 class="camera-stream-img"
+                                 src="/api/video_feed/cam_01"
+                                 alt="Live Surveillance Stream">
 
                             <div class="grid-overlay"></div>
 
 
-                            <div class="viewport-message">
+                            <div class="viewport-message" style="z-index: 1;">
 
                                 <i class="fa-solid fa-camera"></i>
 
@@ -485,15 +498,15 @@
 
                             <!-- CAMERA CORNERS -->
 
-                            <div class="corner c1"></div>
-                            <div class="corner c2"></div>
-                            <div class="corner c3"></div>
-                            <div class="corner c4"></div>
+                            <div class="corner c1" style="z-index: 3;"></div>
+                            <div class="corner c2" style="z-index: 3;"></div>
+                            <div class="corner c3" style="z-index: 3;"></div>
+                            <div class="corner c4" style="z-index: 3;"></div>
 
 
-                            <div class="camera-meta">
+                            <div class="camera-meta" style="z-index: 3;">
 
-                                <span>
+                                <span id="cameraMetaName">
                                     CAM-01 / MAIN
                                 </span>
 
@@ -510,7 +523,7 @@
 
                             <div>
 
-                                <span class="footer-online">
+                                <span class="footer-online" id="footerOnlineBadge">
                                     <i class="fa-solid fa-circle"></i>
                                     ONLINE
                                 </span>
@@ -574,11 +587,11 @@
 
                             <div class="ring-inner">
 
-                                <strong>
+                                <strong id="facilityScore">
                                     94%
                                 </strong>
 
-                                <span>
+                                <span id="facilityStatusText">
                                     SECURE
                                 </span>
 
@@ -596,7 +609,7 @@
                                     ACCESS
                                 </span>
 
-                                <strong>
+                                <strong id="statAccessCount">
                                     128
                                 </strong>
 
@@ -613,7 +626,7 @@
                                     BLOCKED
                                 </span>
 
-                                <strong class="blocked">
+                                <strong class="blocked" id="statBlockedCount">
                                     03
                                 </strong>
 
@@ -630,7 +643,7 @@
                                     ACTIVE
                                 </span>
 
-                                <strong>
+                                <strong id="statActiveVisitors">
                                     07
                                 </strong>
 
@@ -682,7 +695,7 @@
                 <div class="mini-camera-row">
 
 
-                    <div class="mini-camera selected">
+                    <div class="mini-camera selected" data-cam-id="cam_01">
 
                         <div class="mini-screen">
 
@@ -709,7 +722,7 @@
                     </div>
 
 
-                    <div class="mini-camera">
+                    <div class="mini-camera" data-cam-id="cam_02">
 
                         <div class="mini-screen">
 
@@ -736,7 +749,7 @@
                     </div>
 
 
-                    <div class="mini-camera">
+                    <div class="mini-camera" data-cam-id="cam_03">
 
                         <div class="mini-screen">
 
@@ -763,7 +776,7 @@
                     </div>
 
 
-                    <div class="mini-camera offline-mini">
+                    <div class="mini-camera offline-mini" data-cam-id="cam_04">
 
                         <div class="mini-screen">
 
@@ -826,7 +839,7 @@
                         </div>
 
 
-                        <div class="activity-list">
+                        <div class="activity-list" id="activityList">
 
 
                             <div class="activity-item danger-row">
@@ -1309,20 +1322,30 @@
                             Today's Records
                         </strong>
 
-                        <div>
+                        <div style="display: flex; gap: 8px; align-items: center;">
 
-                            <button class="filter-button active">
+                            <button class="filter-button active" data-filter="all">
                                 All
                             </button>
 
-                            <button class="filter-button">
+                            <button class="filter-button" data-filter="employees">
                                 Employees
                             </button>
 
-                            <button class="filter-button">
+                            <button class="filter-button" data-filter="visitors">
                                 Visitors
                             </button>
 
+                        </div>
+
+                        <div class="toolbar-actions">
+                            <input type="text" id="recordsSearchInput" class="search-input" placeholder="Search records...">
+                            <button id="exportCsvBtn" class="action-btn" title="Export CSV Audit Report">
+                                <i class="fa-solid fa-file-csv"></i> CSV
+                            </button>
+                            <button id="exportJsonBtn" class="action-btn" title="Export JSON Report">
+                                <i class="fa-solid fa-file-code"></i> JSON
+                            </button>
                         </div>
 
                     </div>
@@ -1345,7 +1368,7 @@
                         </thead>
 
 
-                        <tbody>
+                        <tbody id="recordsTableBody">
 
                             <tr>
 
@@ -1437,7 +1460,7 @@
                 </div>
 
 
-                <div class="access-timeline">
+                <div class="access-timeline" id="accessTimeline">
 
                     <div class="timeline-entry granted-entry">
 
@@ -1546,7 +1569,7 @@
                 <div class="alert-command">
 
 
-                    <div class="major-alert">
+                    <div class="major-alert" id="majorAlertContainer">
 
                         <div class="major-alert-icon">
 
@@ -1565,65 +1588,68 @@
                             </h3>
 
                             <p>
-                                Unknown face detected at Main Entrance.
-                                Access was automatically denied.
+                                Unknown face detected at Main Entrance. Access was automatically denied.
                             </p>
 
                             <small>
-                                23 MAY 2025 • 10:18:47 AM • CAM 01
+                                23 MAY 2026 • 10:18:47 AM • CAM 01
                             </small>
 
                         </div>
 
-                        <button>
+                        <button id="majorAlertReviewBtn">
                             REVIEW EVENT
                         </button>
 
                     </div>
 
 
-                    <div class="alert-card-small">
+                    <div id="smallAlertsContainer" style="display: flex; flex-direction: column; gap: 15px;">
 
-                        <i class="fa-solid fa-user-slash"></i>
+                        <div class="alert-card-small">
 
-                        <div>
+                            <i class="fa-solid fa-user-slash"></i>
 
-                            <strong>
-                                Unknown Face
-                            </strong>
+                            <div>
 
-                            <span>
-                                Side Gate • 10:25 AM
-                            </span>
+                                <strong>
+                                    Unknown Face
+                                </strong>
 
-                        </div>
+                                <span>
+                                    Side Gate • 10:25 AM
+                                </span>
 
-                        <b>
-                            ALERT
-                        </b>
+                            </div>
 
-                    </div>
-
-
-                    <div class="alert-card-small">
-
-                        <i class="fa-solid fa-eye"></i>
-
-                        <div>
-
-                            <strong>
-                                Recognition Failed
-                            </strong>
-
-                            <span>
-                                Reception • 09:47 AM
-                            </span>
+                            <b>
+                                ALERT
+                            </b>
 
                         </div>
 
-                        <b>
-                            REVIEW
-                        </b>
+
+                        <div class="alert-card-small">
+
+                            <i class="fa-solid fa-eye"></i>
+
+                            <div>
+
+                                <strong>
+                                    Recognition Failed
+                                </strong>
+
+                                <span>
+                                    Reception • 09:47 AM
+                                </span>
+
+                            </div>
+
+                            <b>
+                                REVIEW
+                            </b>
+
+                        </div>
 
                     </div>
 
@@ -1639,8 +1665,150 @@
 </div>
 
 
+<!-- =========================================================
+     MODALS (THEME MATCHED)
+========================================================= -->
+
+<!-- 1. ADMIN LOGIN & PROFILE MODAL -->
+<div class="modal-backdrop" id="adminModal">
+    <div class="modal-card">
+        <div class="modal-header">
+            <h3><i class="fa-solid fa-user-shield"></i> <span id="adminModalTitle">Admin Authentication</span></h3>
+            <button class="modal-close" onclick="closeModal('adminModal')">&times;</button>
+        </div>
+        <div class="modal-body" id="adminLoginForm">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="adminUsername" class="form-input" placeholder="admin" value="admin">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="adminPassword" class="form-input" placeholder="admin123" value="admin123">
+            </div>
+            <div id="adminLoginError" style="color: var(--red); font-size: 12px; display: none;"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" onclick="closeModal('adminModal')">Cancel</button>
+                <button type="button" class="btn-primary" id="adminSubmitLoginBtn">
+                    <i class="fa-solid fa-right-to-bracket"></i> Login
+                </button>
+            </div>
+        </div>
+        <div class="modal-body" id="adminProfileView" style="display: none;">
+            <p style="font-size: 13px; color: var(--text);">Logged in as <strong id="adminProfileName">Administrator</strong></p>
+            <p style="font-size: 12px; color: var(--muted);">Role: <span style="color: var(--green);">Chief Security Officer</span></p>
+            <div class="modal-footer">
+                <button type="button" class="btn-primary" id="openEnrollFromAdminBtn"><i class="fa-solid fa-user-plus"></i> Enroll Identity</button>
+                <button type="button" class="btn-danger" id="adminLogoutBtn"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 2. BIOMETRIC FACE ENROLLMENT MODAL -->
+<div class="modal-backdrop" id="enrollModal">
+    <div class="modal-card">
+        <div class="modal-header">
+            <h3><i class="fa-solid fa-fingerprint"></i> Face Enrollment</h3>
+            <button class="modal-close" onclick="closeModal('enrollModal')">&times;</button>
+        </div>
+        <form id="enrollForm" class="modal-body">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div class="form-group">
+                    <label>Identity Code</label>
+                    <input type="text" id="enrollCode" class="form-input" placeholder="EMP-1055" required>
+                </div>
+                <div class="form-group">
+                    <label>Classification</label>
+                    <select id="enrollType" class="form-select">
+                        <option value="EMPLOYEE">Employee (Green)</option>
+                        <option value="VISITOR">Visitor (Yellow)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Full Legal Name</label>
+                <input type="text" id="enrollName" class="form-input" placeholder="e.g. John Doe" required>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div class="form-group">
+                    <label>Department</label>
+                    <input type="text" id="enrollDept" class="form-input" value="Engineering">
+                </div>
+                <div class="form-group">
+                    <label>Designation</label>
+                    <input type="text" id="enrollDesig" class="form-input" value="Security Engineer">
+                </div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div class="form-group">
+                    <label>Access Clearance</label>
+                    <select id="enrollLevel" class="form-select">
+                        <option value="Level 1">Level 1 (General)</option>
+                        <option value="Level 2">Level 2 (Staff / R&D)</option>
+                        <option value="Level 3">Level 3 (Restricted)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Allowed Cameras</label>
+                    <input type="text" id="enrollCameras" class="form-input" value="cam_01,cam_02,cam_03,cam_04">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Face Portrait Photo (JPG / PNG)</label>
+                <input type="file" id="enrollPhoto" class="form-input" accept=".jpg,.jpeg,.png" required>
+            </div>
+            <div id="enrollMessage" style="font-size: 12px; display: none;"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" onclick="closeModal('enrollModal')">Cancel</button>
+                <button type="submit" class="btn-primary" id="enrollSubmitBtn">
+                    <i class="fa-solid fa-cloud-arrow-up"></i> Extract & Enroll
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- 3. SECURITY EVENT INVESTIGATION MODAL -->
+<div class="modal-backdrop" id="alertReviewModal">
+    <div class="modal-card">
+        <div class="modal-header">
+            <h3><i class="fa-solid fa-shield-halved"></i> Event Investigation</h3>
+            <button class="modal-close" onclick="closeModal('alertReviewModal')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="reviewAlertId">
+            <div id="reviewSnapshotArea" style="text-align: center;">
+                <img id="reviewSnapshotImg" style="max-height: 180px; width: 100%; object-fit: cover; border-radius: 4px; border: 1px solid var(--line); display: none;">
+            </div>
+            <div class="form-group">
+                <label>Incident Details</label>
+                <p id="reviewAlertDesc" style="font-size: 13px; color: var(--text); background: var(--panel2); padding: 8px 10px; border-radius: 4px; border: 1px solid var(--line); margin: 0;"></p>
+            </div>
+            <div class="form-group">
+                <label>Lifecycle Status (NEW &rarr; INVESTIGATING &rarr; RESOLVED)</label>
+                <select id="reviewAlertStatus" class="form-select">
+                    <option value="NEW">NEW - Action Required</option>
+                    <option value="INVESTIGATING">INVESTIGATING - Security Officer Dispatched</option>
+                    <option value="RESOLVED">RESOLVED - Incident Verified & Closed</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Officer Resolution Notes</label>
+                <textarea id="reviewAlertNotes" class="form-textarea" placeholder="Enter findings, physical verification, or resolution steps..."></textarea>
+            </div>
+            <div id="reviewAlertMsg" style="font-size: 12px; display: none;"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" onclick="closeModal('alertReviewModal')">Cancel</button>
+                <button type="button" class="btn-primary" id="saveAlertReviewBtn">
+                    <i class="fa-solid fa-floppy-disk"></i> Update Status
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="script.js"></script>
 
 </body>
 
-</html>
+</html>
