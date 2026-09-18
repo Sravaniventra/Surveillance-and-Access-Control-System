@@ -1,4 +1,4 @@
-* {
+﻿* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -2313,19 +2313,41 @@ td {
 }
 
 .face-box {
-
     display: none;
-
     position: absolute;
-
     width: 170px;
     height: 220px;
-
     border: 3px solid var(--green);
-
     pointer-events: none;
-
+    z-index: 4;
 }
+
+/* Change Image button */
+.change-image-btn {
+    display: none;
+    position: absolute;
+    bottom: 14px;
+    right: 14px;
+    z-index: 5;
+    background: rgba(9, 20, 27, 0.85);
+    border: 1px solid var(--line);
+    color: var(--text);
+    padding: 7px 13px;
+    font-size: 10px;
+    cursor: pointer;
+    gap: 6px;
+    align-items: center;
+    border-radius: 3px;
+    transition: background .2s;
+}
+.change-image-btn:hover {
+    background: var(--panel2);
+    border-color: var(--blue);
+    color: var(--blue);
+}
+.change-image-btn input { display: none; }
+.image-area.has-image .change-image-btn { display: flex; }
+.image-area.has-image .upload-content { display: none; }
 
 .image-footer {
 

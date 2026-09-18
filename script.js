@@ -1,4 +1,4 @@
-/* =====================================================
+﻿/* =====================================================
    SECUREVISION ENTERPRISE SURVEILLANCE & ACCESS CONTROL
    Frontend Integration Script
    Preserving original layout, navigation, and components
@@ -80,27 +80,76 @@ document.querySelectorAll("[data-page-target]").forEach(button => {
 /* =====================================================
    CLOCK & DATE
 ===================================================== */
-function updateClock() {
+/* =====================================================
+   IST TIME HELPERS  (UTC+5:30)
+===================================================== */
+function nowIST() {
+    // Returns a Date object shifted to IST (UTC+5:30)
     const now = new Date();
-    let hours = now.getHours();
-    const minutes = String(now.getMinutes()).padStart(2, "0");
-    const seconds = String(now.getSeconds()).padStart(2, "0");
+    return new Date(now.getTime() + 5.5 * 3600000);
+}
+
+function _toUTC(dateInput) {
+    // Backend returns ISO strings WITHOUT timezone suffix (naive UTC from SQLite)
+    // Append Z so JS Date parses them as UTC, not local time
+    if (typeof dateInput === "string") {
+        return new Date(dateInput.endsWith("Z") ? dateInput : dateInput + "Z");
+    }
+    return dateInput;
+}
+
+function _toIST(dateInput) {
+    const d = _toUTC(dateInput);
+    // IST = UTC + 5h 30m
+    return new Date(d.getTime() + 5.5 * 3600000);
+}
+
+function formatIST(dateInput) {
+    const ist = _toIST(dateInput);
+    let h = ist.getUTCHours(), m = ist.getUTCMinutes(), s = ist.getUTCSeconds();
+    const ampm = h >= 12 ? "PM" : "AM";
+    h = h % 12 || 12;
+    return `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")} ${ampm} IST`;
+}
+
+function formatISTShort(dateInput) {
+    const ist = _toIST(dateInput);
+    let h = ist.getUTCHours(), m = ist.getUTCMinutes();
+    const ampm = h >= 12 ? "PM" : "AM";
+    h = h % 12 || 12;
+    return `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")} ${ampm}`;
+}
+
+function formatISTFull(dateInput) {
+    const ist = _toIST(dateInput);
+    const months = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+    const dd  = String(ist.getUTCDate()).padStart(2,"0");
+    const mon = String(ist.getUTCMonth()+1).padStart(2,"0");
+    const yr  = ist.getUTCFullYear();
+    return `${dd}-${mon}-${yr} ${formatIST(dateInput)}`;
+}
+
+function updateClock() {
+    const ist = nowIST();
+    let hours = ist.getUTCHours();
+    const minutes = String(ist.getUTCMinutes()).padStart(2, "0");
+    const seconds = String(ist.getUTCSeconds()).padStart(2, "0");
     const ampm = hours >= 12 ? "PM" : "AM";
     hours = hours % 12 || 12;
 
-    const time = `${String(hours).padStart(2, "0")}:${minutes}:${seconds}`;
-    const fullTime = `${String(hours).padStart(2, "0")}:${minutes}:${seconds} ${ampm}`;
+    const time     = `${String(hours).padStart(2, "0")}:${minutes}:${seconds}`;
+    const fullTime = `${String(hours).padStart(2, "0")}:${minutes}:${seconds} ${ampm} IST`;
 
-    const topClock = document.getElementById("topClock");
+    const topClock     = document.getElementById("topClock");
     const commandClock = document.getElementById("commandClock");
 
-    if (topClock) topClock.textContent = time;
+    if (topClock)     topClock.textContent     = time;
     if (commandClock) commandClock.textContent = fullTime;
 
-    const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-    const dateText = `${String(now.getDate()).padStart(2, "0")} ${months[now.getMonth()]} ${now.getFullYear()}`;
-    const dateElement = document.getElementById("fullDate");
-    if (dateElement) dateElement.textContent = dateText;
+    const months   = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+    const dateText = `${String(ist.getUTCDate()).padStart(2,"0")} ${months[ist.getUTCMonth()]} ${ist.getUTCFullYear()}`;
+    const dateEl   = document.getElementById("fullDate");
+    if (dateEl) dateEl.textContent = dateText;
 }
 updateClock();
 setInterval(updateClock, 1000);
@@ -273,7 +322,7 @@ async function fetchRecentActivity() {
         if (logs.length === 0) return;
 
         container.innerHTML = logs.map(log => {
-            const timeStr = new Date(log.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const timeStr = formatISTShort(log.timestamp);
             let markerClass = "danger-marker";
             let markerIcon = "fa-triangle-exclamation";
             let rowClass = "danger-row";
@@ -299,7 +348,7 @@ async function fetchRecentActivity() {
                     </div>
                     <div class="activity-details">
                         <strong>${log.identity_name}</strong>
-                        <span>${log.location} • ${log.camera_name}</span>
+                        <span>${log.location} â€¢ ${log.camera_name}</span>
                     </div>
                     <b class="activity-status ${statusClass}">${log.status}</b>
                 </div>
@@ -319,21 +368,43 @@ const uploadContent = document.querySelector(".upload-content");
 const faceBox = document.getElementById("faceBox");
 const processButton = document.getElementById("processButton");
 
+function loadImageFile(file) {
+    if (!file) return;
+    currentUploadedFile = file;
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        uploadedImage.src = e.target.result;
+        uploadedImage.style.display = "block";
+        if (uploadContent) uploadContent.style.display = "none";
+        if (faceBox) faceBox.style.display = "none";
+        // Mark image-area so Change Image button appears
+        const imageArea = document.getElementById("imageArea");
+        if (imageArea) imageArea.classList.add("has-image");
+        // Reset result panel for the new image
+        const result = document.getElementById("recognitionResult");
+        const access = document.getElementById("accessResult");
+        const circle = document.getElementById("statusCircle");
+        if (result) result.textContent = "WAITING";
+        if (access) access.textContent = "Click Run Face Recognition to analyse";
+        if (circle) { circle.className = "status-circle"; circle.innerHTML = '<i class="fa-solid fa-check"></i>'; }
+    };
+    reader.readAsDataURL(file);
+    updateRecognitionTime();
+}
+
 if (imageInput) {
     imageInput.addEventListener("change", function (event) {
-        const file = event.target.files[0];
-        if (!file) return;
+        loadImageFile(event.target.files[0]);
+    });
+}
 
-        currentUploadedFile = file;
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            uploadedImage.src = e.target.result;
-            uploadedImage.style.display = "block";
-            if (uploadContent) uploadContent.style.display = "none";
-            if (faceBox) faceBox.style.display = "none";
-        };
-        reader.readAsDataURL(file);
-        updateRecognitionTime();
+// Wire up the "Change Image" button (second file input overlay)
+const imageInputChange = document.getElementById("imageInputChange");
+if (imageInputChange) {
+    imageInputChange.addEventListener("change", function (event) {
+        loadImageFile(event.target.files[0]);
+        // Reset the input so the same file can be re-selected
+        event.target.value = "";
     });
 }
 
@@ -431,7 +502,14 @@ if (processButton) {
             }
 
             document.getElementById("timestamp").textContent = data.timestamp;
+
+            // Refresh ALL live panels immediately after every recognition
             fetchDashboardStats();
+            fetchRecentActivity();
+            fetchRecords();
+            fetchAccessLogs();
+            fetchAlerts();
+
         } catch (err) {
             console.error(err);
             result.textContent = "PROCESSING ERROR";
@@ -441,6 +519,84 @@ if (processButton) {
         } finally {
             processButton.disabled = false;
         }
+    });
+}
+
+/* =====================================================
+   UPLOAD NEW IMAGE — label wraps a real file input
+   (programmatic .click() is blocked by browsers;
+    a <label for="..."> is the only reliable approach)
+===================================================== */
+function resetRecognitionPanel() {
+    if (uploadedImage) { uploadedImage.src = ""; uploadedImage.style.display = "none"; }
+    if (uploadContent) uploadContent.style.display = "";
+    if (faceBox) faceBox.style.display = "none";
+
+    const imageArea = document.getElementById("imageArea");
+    if (imageArea) imageArea.classList.remove("has-image");
+
+    const result = document.getElementById("recognitionResult");
+    const access = document.getElementById("accessResult");
+    const circle = document.getElementById("statusCircle");
+    if (result) result.textContent = "WAITING";
+    if (access) access.textContent = "Upload an image to begin";
+    if (circle) { circle.className = "status-circle"; circle.innerHTML = '<i class="fa-solid fa-check"></i>'; }
+
+    ["employeeId","employeeName","department","designation","accessLevel"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = "---";
+    });
+    const ts = document.getElementById("timestamp");
+    if (ts) ts.textContent = "Waiting for image...";
+
+    if (imageInput) imageInput.value = "";
+    currentUploadedFile = null;
+}
+
+// The "Upload New Image" label contains its own <input id="imageInputNew">
+const imageInputNew = document.getElementById("imageInputNew");
+if (imageInputNew) {
+    imageInputNew.addEventListener("change", function (event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        // Update currentUploadedFile first
+        currentUploadedFile = file;
+
+        // Read and display the new image directly — no reset before FileReader
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            // Clear old state
+            if (faceBox) faceBox.style.display = "none";
+            const imageArea = document.getElementById("imageArea");
+            if (imageArea) imageArea.classList.add("has-image");
+
+            // Show new image
+            uploadedImage.src = e.target.result;
+            uploadedImage.style.display = "block";
+            if (uploadContent) uploadContent.style.display = "none";
+
+            // Reset result panel
+            const result = document.getElementById("recognitionResult");
+            const access = document.getElementById("accessResult");
+            const circle = document.getElementById("statusCircle");
+            if (result) result.textContent = "WAITING";
+            if (access) access.textContent = "Click Run Face Recognition to analyse";
+            if (circle) { circle.className = "status-circle"; circle.innerHTML = '<i class="fa-solid fa-check"></i>'; }
+
+            ["employeeId","employeeName","department","designation","accessLevel"].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = "---";
+            });
+            const ts = document.getElementById("timestamp");
+            if (ts) ts.textContent = "Waiting for image...";
+
+            updateRecognitionTime();
+        };
+        reader.readAsDataURL(file);
+
+        // Allow re-selecting the same file next time (after reader starts, not before)
+        setTimeout(() => { event.target.value = ""; }, 100);
     });
 }
 
@@ -470,19 +626,10 @@ function positionFaceBox(box, color) {
 }
 
 function updateRecognitionTime() {
-    const element = document.getElementById("recognitionTime");
+    const element   = document.getElementById("recognitionTime");
     const timestamp = document.getElementById("timestamp");
     if (!element && !timestamp) return;
-
-    const now = new Date();
-    let hours = now.getHours();
-    const minutes = String(now.getMinutes()).padStart(2, "0");
-    const seconds = String(now.getSeconds()).padStart(2, "0");
-    const ampm = hours >= 12 ? "PM" : "AM";
-    hours = hours % 12 || 12;
-
-    const formatted = `${String(now.getDate()).padStart(2, "0")}-${String(now.getMonth() + 1).padStart(2, "0")}-${now.getFullYear()} ${hours}:${minutes}:${seconds} ${ampm}`;
-
+    const formatted = formatISTFull(new Date());
     if (element) element.textContent = formatted;
     if (timestamp && timestamp.textContent.includes("Waiting")) {
         timestamp.textContent = formatted;
@@ -507,7 +654,7 @@ async function fetchRecords(filter = currentFilter, search = "") {
         }
 
         tbody.innerHTML = records.map(r => {
-            const timeStr = new Date(r.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            const timeStr = formatIST(r.timestamp);
             let badgeClass = "table-danger";
             if (r.status === "GRANTED") badgeClass = "table-success";
             else if (r.status === "CHECKED IN") badgeClass = "table-info";
@@ -582,7 +729,7 @@ async function fetchAccessLogs() {
         }
 
         container.innerHTML = logs.map(l => {
-            const timeStr = new Date(l.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const timeStr = formatISTShort(l.timestamp);
             const isGranted = l.status === "GRANTED";
             const entryClass = isGranted ? "granted-entry" : "denied-entry";
             const iconClass = isGranted ? "fa-check" : "fa-xmark";
@@ -593,7 +740,7 @@ async function fetchAccessLogs() {
                     <div class="timeline-icon"><i class="fa-solid ${iconClass}"></i></div>
                     <div>
                         <strong>Access ${l.status === "GRANTED" ? "Granted" : (l.status === "CHECKED IN" ? "Checked In" : "Denied")}</strong>
-                        <span>${l.identity_name} (${l.identity_code}) • ${l.location} [${l.camera_name}]</span>
+                        <span>${l.identity_name} (${l.identity_code}) â€¢ ${l.location} [${l.camera_name}]</span>
                     </div>
                 </div>
             `;
@@ -627,7 +774,7 @@ async function fetchAlerts() {
         const topAlert = currentAlertsList[0];
         if (majorContainer) {
             majorContainer.style.display = "grid";
-            const dateStr = new Date(topAlert.timestamp).toLocaleString();
+            const dateStr = formatISTFull(topAlert.timestamp);
             majorContainer.innerHTML = `
                 <div class="major-alert-icon">
                     <i class="fa-solid fa-triangle-exclamation"></i>
@@ -639,7 +786,7 @@ async function fetchAlerts() {
                     </span>
                     <h3>${topAlert.alert_type.replace(/_/g, " ")}: ${topAlert.identity_name}</h3>
                     <p>${topAlert.description}</p>
-                    <small>${dateStr} • ${topAlert.location} • ${topAlert.camera_name}</small>
+                    <small>${dateStr} â€¢ ${topAlert.location} â€¢ ${topAlert.camera_name}</small>
                 </div>
                 <button onclick="openAlertReviewModal(${topAlert.id})">
                     REVIEW EVENT
@@ -654,13 +801,13 @@ async function fetchAlerts() {
                 smallContainer.innerHTML = "";
             } else {
                 smallContainer.innerHTML = others.map(a => {
-                    const timeStr = new Date(a.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    const timeStr = formatISTShort(a.timestamp);
                     return `
                         <div class="alert-card-small" style="cursor: pointer;" onclick="openAlertReviewModal(${a.id})">
                             <i class="fa-solid fa-user-slash"></i>
                             <div>
                                 <strong>${a.alert_type.replace(/_/g, " ")}: ${a.identity_name}</strong>
-                                <span>${a.location} • ${timeStr}</span>
+                                <span>${a.location} â€¢ ${timeStr}</span>
                             </div>
                             <span class="alert-status-badge ${a.status.toLowerCase()}">${a.status}</span>
                         </div>
@@ -933,7 +1080,7 @@ function initWebSocket() {
         try {
             const msg = JSON.parse(event.data);
             if (msg.type === "new_alert") {
-                // Update top and rail alerts
+                // Update badge counts immediately
                 const railAlert = document.getElementById("railAlertCount");
                 const topBadge = document.getElementById("topAlertBadge");
                 if (railAlert) {
@@ -944,11 +1091,21 @@ function initWebSocket() {
                     const curr = parseInt(topBadge.textContent) || 0;
                     topBadge.textContent = String(curr + 1);
                 }
+                // Refresh all panels
                 fetchAlerts();
+                fetchRecords();
+                fetchAccessLogs();
+                fetchDashboardStats();
             } else if (msg.type === "new_activity") {
                 fetchRecentActivity();
+                fetchRecords();
+                fetchAccessLogs();
+                fetchAlerts();
                 fetchDashboardStats();
             } else if (msg.type === "new_enrollment") {
+                fetchDashboardStats();
+            } else if (msg.type === "alert_status_update") {
+                fetchAlerts();
                 fetchDashboardStats();
             }
         } catch (e) {
@@ -976,4 +1133,17 @@ window.addEventListener("DOMContentLoaded", () => {
     fetchRecords();
     fetchAccessLogs();
     fetchAlerts();
+
+    // Auto-refresh every 10 seconds so panels stay live even without WebSocket events
+    setInterval(() => {
+        fetchDashboardStats();
+        fetchRecentActivity();
+        // Only refresh the currently visible tab to avoid unnecessary work
+        const activePage = document.querySelector(".page.active-page");
+        if (!activePage) return;
+        const pid = activePage.id;
+        if (pid === "records") fetchRecords();
+        else if (pid === "access") fetchAccessLogs();
+        else if (pid === "alerts") fetchAlerts();
+    }, 10000);
 });
